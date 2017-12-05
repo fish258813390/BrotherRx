@@ -22,9 +22,11 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
+import rx.Observer;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -183,22 +185,23 @@ public class BaseModel {
      * @param observable
      * @param <T>
      */
-    public static <T> void invokeMerge(LifeSubscription lifeSubscription, Subscriber<T> subscriber, Observable<T>... observable) {
-        Observable<T> myObservable = null;
+    public static <T> void invokeMerge(LifeSubscription lifeSubscription, Subscriber<T> subscriber, Observable... observable) {
+        Observable myObservable = null;
         switch (observable.length) {
             case 2:
-                myObservable.mergeWith(observable[0]).mergeWith(observable[1]);
+                myObservable = Observable.merge(observable[0],observable[1]);
                 break;
 
             case 3:
-                myObservable.mergeWith(observable[0]).mergeWith(observable[1]).mergeWith(observable[2]);
+                myObservable = Observable.merge(observable[0],observable[1],observable[2]);
                 break;
 
             case 4:
-                myObservable.mergeWith(observable[0]).mergeWith(observable[1]).mergeWith(observable[2]).mergeWith(observable[3]);
+                myObservable = Observable.merge(observable[0],observable[1],observable[2],observable[3]);
                 break;
         }
-        Subscription subscription = myObservable.subscribeOn(Schedulers.io())
+        Subscription subscription = myObservable
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
         lifeSubscription.bindSubscription(subscription);

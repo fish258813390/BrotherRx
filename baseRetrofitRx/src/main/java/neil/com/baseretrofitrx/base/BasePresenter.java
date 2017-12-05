@@ -40,7 +40,7 @@ public class BasePresenter<T> {
     }
 
     // 处理多个请求订阅 合并数据源
-    protected <T> void invokeMerge(Subscriber<T> subscription, Observable<T>... observable) {
+    protected <T> void invokeMerge(Subscriber<T> subscription, Observable... observable) {
         BaseModel.invokeMerge(lifeSubscription, subscription, observable);
     }
 

@@ -16,7 +16,7 @@ import neil.com.baseretrofitrx.utils.LogUtils;
 import neil.com.brotherrx.sample.yiyuan.YiyuanPresenter;
 import neil.com.brotherrx.sample.yiyuan.YiyuanView;
 
-public class MainActivity extends BaseActivity<YiyuanPresenter,YiyuanView> implements YiyuanView{
+public class MainActivity extends BaseActivity<YiyuanPresenter, YiyuanView> implements YiyuanView {
 
     @BindView(R.id.btn_test1)
     Button btnTest1;
@@ -32,26 +32,28 @@ public class MainActivity extends BaseActivity<YiyuanPresenter,YiyuanView> imple
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         System.out.print("11111");
-        Toast.makeText(this,"2213123",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "2213123", Toast.LENGTH_LONG).show();
         btnTest1.setText("55555");
     }
 
 
-    @OnClick({R.id.btn_test1})
+    @OnClick({R.id.btn_test1, R.id.btn_test2,R.id.btn_test3})
     public void onViewClicked(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_test1:
-                Map<String,String> parms = new HashMap<>();
-                parms.put("m","10");
-                parms.put("showapi_appid","47526");
-                parms.put("showapi_sign","c05733048bb9427f8ae9b8ede645ff23");
+                Map<String, String> parms = new HashMap<>();
+                parms.put("m", "10");
+                parms.put("showapi_appid", "47526");
+                parms.put("showapi_sign", "c05733048bb9427f8ae9b8ede645ff23");
 //                mPresenter.getHotListRank(parms);
-                mPresenter.getHotListRankNew(10,"47526","c05733048bb9427f8ae9b8ede645ff23");
+                mPresenter.getHotListRankNew(10, "47526", "c05733048bb9427f8ae9b8ede645ff23");
                 break;
             case R.id.btn_test2:
-
+                mPresenter.multiRequest(10, "47526", "c05733048bb9427f8ae9b8ede645ff23", 15);
                 break;
-
+            case R.id.btn_test3:
+                mPresenter.getDataFlatMap(10, "47526", "c05733048bb9427f8ae9b8ede645ff23");
+                break;
         }
     }
 
