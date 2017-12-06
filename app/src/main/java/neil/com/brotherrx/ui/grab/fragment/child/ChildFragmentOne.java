@@ -129,13 +129,42 @@ public class ChildFragmentOne extends Fragment {
 
         layoutSwipeRefresh.setColorSchemeColors(getResources().getColor(R.color.refresh_color));
         layoutSwipeRefresh.setOnRefreshListener(onRefreshListener);
-        refresh();
+//        refresh();
 
-        listJuzi.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+
+        listJuzi.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
 
-                LogUtils.d("滑动距离:" + scrollY);
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                LogUtils.d("FirstVisibleItemPosition:" + firstVisibleItemPosition);
+                int firstCompletelyVisibleItemPosition = layoutManager.findFirstCompletelyVisibleItemPosition();
+                LogUtils.d("firstCompletelyVisibleItemPosition:" + firstCompletelyVisibleItemPosition);
+                int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                LogUtils.d("lastVisibleItemPosition:" + lastVisibleItemPosition);
+                int lastCompletelyVisibleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition();
+                LogUtils.d("lastCompletelyVisibleItemPosition:" + lastCompletelyVisibleItemPosition);
+                if (firstVisibleItemPosition >= 1) {
+                    fab.setVisibility(View.VISIBLE);
+                } else {
+                    fab.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayoutManager layoutManager = (LinearLayoutManager) listJuzi.getLayoutManager();
+                if (mDatas != null && mDatas.size() > 0) {
+                    layoutManager.scrollToPosition(0);
+                }
             }
         });
 
@@ -193,7 +222,7 @@ public class ChildFragmentOne extends Fragment {
         }
     };
 
-    private void refresh(){
+    private void refresh() {
         progressDialog.dismiss();
         mDatas.clear();
         // 刷新
@@ -213,13 +242,14 @@ public class ChildFragmentOne extends Fragment {
         layoutSwipeRefresh.setRefreshing(false);
 //            rotateloading.stop();
         RecyclerViewStateUtils.setFooterViewState(listJuzi, RecyclerViewLoadingFooter.State.Normal);
-        flag ++;
+        flag++;
     }
 
 
-    private void loadMore(){
+    private void loadMore() {
+        List<GrabTargetBean> data = new ArrayList<>();
         // 刷新
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             GrabTargetBean grabTargetBean = new GrabTargetBean();
             grabTargetBean.setName("第[2]组," + i);
             grabTargetBean.setPhone("1587755555" + i);
@@ -228,16 +258,16 @@ public class ChildFragmentOne extends Fragment {
             } else {
                 grabTargetBean.setIsEnable("不可抢");
             }
-            mDatas.add(grabTargetBean);
+            data.add(grabTargetBean);
         }
-        mDatas.addAll(mDatas);
+        mDatas.addAll(data);
         mAdapter.notifyDataSetChanged();
         layoutSwipeRefresh.setRefreshing(false);
 //            rotateloading.stop();
-        flag ++;
+        flag++;
         RecyclerViewStateUtils.setFooterViewState(listJuzi, RecyclerViewLoadingFooter.State.Normal);
         // 加载更多
-        if(flag == 3){
+        if (flag == 3) {
             mHasMore = false;
         }
     }
