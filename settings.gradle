@@ -1,1 +1,1 @@
-include ':app', ':baseRetrofitRx', ':baseCommon'
+include ':app', ':baseRetrofitRx', ':baseCommon', ':recyclerviewlibrary'

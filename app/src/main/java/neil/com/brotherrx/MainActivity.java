@@ -1,5 +1,6 @@
 package neil.com.brotherrx;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import neil.com.baseretrofitrx.base.BaseActivity;
 import neil.com.baseretrofitrx.utils.LogUtils;
 import neil.com.brotherrx.sample.yiyuan.YiyuanPresenter;
 import neil.com.brotherrx.sample.yiyuan.YiyuanView;
+import neil.com.brotherrx.ui.grab.GrabMainActivity;
 
 public class MainActivity extends BaseActivity<YiyuanPresenter, YiyuanView> implements YiyuanView {
 
@@ -37,7 +39,7 @@ public class MainActivity extends BaseActivity<YiyuanPresenter, YiyuanView> impl
     }
 
 
-    @OnClick({R.id.btn_test1, R.id.btn_test2,R.id.btn_test3})
+    @OnClick({R.id.btn_test1, R.id.btn_test2,R.id.btn_test3,R.id.btn_test4})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_test1:
@@ -52,8 +54,14 @@ public class MainActivity extends BaseActivity<YiyuanPresenter, YiyuanView> impl
                 mPresenter.multiRequest(10, "47526", "c05733048bb9427f8ae9b8ede645ff23", 15);
                 break;
             case R.id.btn_test3:
-                mPresenter.getDataFlatMap(10, "47526", "c05733048bb9427f8ae9b8ede645ff23");
+                Intent intent = new Intent(this,GrabOrderActivity.class);
+                startActivity(intent);
                 break;
+            case R.id.btn_test4:
+                Intent intent1 = new Intent(this,GrabMainActivity.class);
+                startActivity(intent1);
+                break;
+
         }
     }
 

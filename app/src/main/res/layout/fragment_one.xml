@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="neil.com.brotherrx.GrabOrderActivity">
+
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/line_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="1dp"
+        android:background="#FFFFFF"
+        app:tabIndicatorColor="#ff9933"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="#FFA200"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabTextColor="#999999" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/line_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF" />
+
+</LinearLayout>
