@@ -265,11 +265,15 @@ public class ChildFragmentOne extends Fragment {
         layoutSwipeRefresh.setRefreshing(false);
 //            rotateloading.stop();
         flag++;
-        RecyclerViewStateUtils.setFooterViewState(listJuzi, RecyclerViewLoadingFooter.State.Normal);
-        // 加载更多
-        if (flag == 3) {
-            mHasMore = false;
+        if(flag == 3){
+            RecyclerViewStateUtils.setFooterViewState(getActivity(), listJuzi, mHasMore, RecyclerViewLoadingFooter.State.TheEnd, null);
+        }else{
+            RecyclerViewStateUtils.setFooterViewState(listJuzi, RecyclerViewLoadingFooter.State.Normal);
         }
+        // 加载更多
+//        if (flag == 3) {
+//            mHasMore = false;
+//        }
     }
 
 
