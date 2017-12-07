@@ -6,6 +6,7 @@
     tools:context="neil.com.brotherrx.MainActivity">
 
     <LinearLayout
+        android:id="@+id/layout_first"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal">
@@ -23,16 +24,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="11sp"
-            android:text="合并请求" />
+            android:text="合并请求"
+            android:textSize="11sp" />
 
         <Button
             android:id="@+id/btn_test3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="11sp"
-            android:text="faltmap" />
+            android:text="faltmap"
+            android:textSize="11sp" />
 
         <Button
             android:id="@+id/btn_test4"
@@ -47,4 +48,38 @@
             android:layout_weight="1"
             android:text="测试" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_second"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/layout_first"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_number"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout_third"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/layout_second"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="同意"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
 </RelativeLayout>
