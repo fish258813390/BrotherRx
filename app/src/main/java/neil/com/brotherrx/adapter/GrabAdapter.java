@@ -18,8 +18,13 @@ import neil.com.brotherrx.entity.GrabTargetBean;
 public class GrabAdapter extends HaoCommonAdapter<GrabTargetBean> {
 
 
-    public GrabAdapter(Context context, int layoutId, List datas) {
+    public GrabAdapter(Context context, int layoutId, List<GrabTargetBean> datas) {
         super(context, layoutId, datas);
+    }
+
+    public void updateRecyclerView(List<GrabTargetBean> datas){
+        this.mDatas = datas;
+        notifyDataSetChanged();
     }
 
     @Override
