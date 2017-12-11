@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".Index2Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -27,7 +27,7 @@
 
         <activity android:name=".GrabOrderActivity"/>
 
-        <activity android:name=".ui.grab.GrabMainActivity"/>
+        <activity android:name=".ui.lifecycle.TestOneAc"/>
 
     </application>
 

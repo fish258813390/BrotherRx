@@ -27,4 +27,9 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="transparentFrameWindowStyle" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/photo_choose_bg</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
 </resources>
