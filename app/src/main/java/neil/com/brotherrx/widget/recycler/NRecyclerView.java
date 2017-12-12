@@ -276,12 +276,11 @@ public class NRecyclerView extends RecyclerView {
 
             if (visibleItemCount > 0 && lastVisibleItemPosition >= totalItemCount - 1 && totalItemCount > visibleItemCount && !isNoMore) {
                 if (footView != null) {
-                    footView.setVisible();
+                    footView.setLoadingVisible();
                 }
 //                isLoadingData = true; // 可以来主动设置是否加载
                 loadMoreListener.onLoadMore();
             }
-
         }
     }
 
@@ -305,16 +304,6 @@ public class NRecyclerView extends RecyclerView {
         footView = view;
     }
 
-    /**
-     * 设置底部加载中效果
-     *
-     * @param view (自定义view)
-     */
-    public void setFootLoadingView(View view) {
-        if (footView != null) {
-            footView.addFootLoadingView(view);
-        }
-    }
 
     /**
      * 设置底部加载中
@@ -370,7 +359,7 @@ public class NRecyclerView extends RecyclerView {
      */
     public void canLoadMore() {
         if (footView != null) {
-            footView.setLoadMore();
+            footView.setLoadMoreByClick();
         }
     }
 
@@ -386,7 +375,7 @@ public class NRecyclerView extends RecyclerView {
     }
 
     /**
-     * 设定是否全部加载完成，如果设未true，则滑到底部不自动加载
+     * 设定是否全部加载完成，如果设为true，则滑到底部不自动加载
      */
     public void setIsNoMore(boolean hasMore) {
         isNoMore = hasMore;

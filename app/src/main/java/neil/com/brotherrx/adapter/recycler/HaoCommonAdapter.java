@@ -29,13 +29,13 @@ public abstract class HaoCommonAdapter<T> extends RecyclerView.Adapter<ViewHolde
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolder holder = ViewHolder.createViewHolder(mContext,parent,mLayoutId);
+        ViewHolder holder = ViewHolder.createViewHolder(mContext, parent, mLayoutId);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        convert(holder, mDatas.get(position) , position);
+        convert(holder, mDatas.get(position), position);
     }
 
     @Override
@@ -44,7 +44,7 @@ public abstract class HaoCommonAdapter<T> extends RecyclerView.Adapter<ViewHolde
         return itemCount;
     }
 
-    public T getItem(int position){
+    public T getItem(int position) {
         return mDatas.get(position);
     }
 

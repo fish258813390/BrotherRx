@@ -43,48 +43,45 @@ public class LoadingMoreFooter extends LinearLayout {
         LayoutInflater layoutInflater = LayoutInflater.from(context); // 初始化布局填填充器
         View view = layoutInflater.inflate(R.layout.recycler_view_footer_loading, null); // 给当前布局 实例化 footer_layout布局 (当前布局 = footer_layout布局)
         loading_view_layout = (LinearLayout) view.findViewById(R.id.loading_view_layout); // 底部布局
-        progressBar = (ProgressBar) loading_view_layout.findViewById(R.id.progressBar); // 精度条
+        progressBar = (ProgressBar) loading_view_layout.findViewById(R.id.progressBar); // 进度条
         textView = (TextView) loading_view_layout.findViewById(R.id.textView); // 文字显示
 
         load_more_layout = (LinearLayout) view.findViewById(R.id.load_more_layout); // can loading_more
         TextView tvLoadMore = new TextView(context);
-        tvLoadMore.setText("点击加载更多!!!!!!");
-//        tvLoadMore.setTextColor(UiUtils.getResource().getColor(R.color.foot_refresh));
+        tvLoadMore.setText("加载更多~");
         addFootLoadMoreView(tvLoadMore);
 
         end_layout = (LinearLayout) view.findViewById(R.id.end_layout); // 没有数据可以加载 (考虑到实际情况可能有:网络出错,数据获取失败...相关问题,所以自己定义并添加)
 
 //        addFootLoadingView(new ProgressBar(context, null, android.R.attr.progressBarStyle));
-        addFootLoadingView(loading_view_layout); // 修改后
+        addFootLoadingView(); // 修改后
 
         TextView textView = new TextView(context);
         textView.setText("已经到底啦~");
-//        textView.setTextColor(UiUtils.getResource().getColor(R.color.foot_refresh));
         addFootEndView(textView); //  设置底部到底了布局
 
         addView(view); // 添加子布局
     }
 
-
-    //设置底部加载中效果
-    public void addFootLoadingView(View view) {
-        setVisible();
-//        loading_view_layout.removeAllViews();
-//        loading_view_layout.addView(view);
-    }
-
-    // 设置底部加载中的效果(view未自定义)
+    /**
+     * 设置底部加载中效果
+     */
     public void addFootLoadingView() {
-        setVisible();
+        setLoadingVisible();
     }
 
-    //设置底部到底了布局
+
+    /**
+     * 设置底部到底了布局
+     */
     public void addFootEndView(View view) {
         end_layout.removeAllViews();
         end_layout.addView(view);
     }
 
-    //设置已经没有更多数据
+    /**
+     * 数据已经加载完成--- 已经没有更多数据
+     */
     public void setEnd() {
         setVisibility(VISIBLE);
         loading_view_layout.setVisibility(GONE);
@@ -92,8 +89,10 @@ public class LoadingMoreFooter extends LinearLayout {
         end_layout.setVisibility(VISIBLE);
     }
 
-    // 显示正在加载
-    public void setVisible() {
+    /**
+     * 加载中--- 显示正在加载
+     */
+    public void setLoadingVisible() {
         setVisibility(VISIBLE);
         loading_view_layout.setVisibility(VISIBLE);
         end_layout.setVisibility(GONE);
@@ -105,13 +104,18 @@ public class LoadingMoreFooter extends LinearLayout {
         setVisibility(GONE);
     }
 
-    // 2017.3.4
+    /**
+     * 第一页数据不足时,手动加载更多
+     */
     public void addFootLoadMoreView(View view) {
         load_more_layout.removeAllViews();
         load_more_layout.addView(view);
     }
 
-    public void setLoadMore(){
+    /**
+     * 当限定分页条数,主动触发加载更多时调用
+     */
+    public void setLoadMoreByClick() {
         setVisibility(VISIBLE);
         load_more_layout.setVisibility(VISIBLE);
         end_layout.setVisibility(GONE);

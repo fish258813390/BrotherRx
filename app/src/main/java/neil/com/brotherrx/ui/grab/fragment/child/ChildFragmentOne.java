@@ -96,7 +96,6 @@ public class ChildFragmentOne extends Fragment {
         }
         progressDialog = new ProgressDialog(getActivity());
         initView();
-        progressDialog.show();
         return view;
 
     }
@@ -224,7 +223,10 @@ public class ChildFragmentOne extends Fragment {
 
     private void refresh() {
         progressDialog.dismiss();
-        mDatas.clear();
+        if (isRefresh) {
+            mDatas.clear();
+            isRefresh = false;
+        }
         // 刷新
         for (int i = 0; i < 10; i++) {
             GrabTargetBean grabTargetBean = new GrabTargetBean();
@@ -240,34 +242,32 @@ public class ChildFragmentOne extends Fragment {
         mDatas.addAll(mDatas);
         mAdapter.notifyDataSetChanged();
         layoutSwipeRefresh.setRefreshing(false);
-//            rotateloading.stop();
         RecyclerViewStateUtils.setFooterViewState(listJuzi, RecyclerViewLoadingFooter.State.Normal);
         flag++;
     }
 
 
     private void loadMore() {
-        List<GrabTargetBean> data = new ArrayList<>();
-        // 刷新
-        for (int i = 0; i < 5; i++) {
-            GrabTargetBean grabTargetBean = new GrabTargetBean();
-            grabTargetBean.setName("第[2]组," + i);
-            grabTargetBean.setPhone("1587755555" + i);
-            if (i % 4 == 0) {
-                grabTargetBean.setIsEnable("可抢");
-            } else {
-                grabTargetBean.setIsEnable("不可抢");
-            }
-            data.add(grabTargetBean);
-        }
-        mDatas.addAll(data);
-        mAdapter.notifyDataSetChanged();
-        layoutSwipeRefresh.setRefreshing(false);
-//            rotateloading.stop();
-        flag++;
-        if(flag == 3){
+        if (flag == 5) {
             RecyclerViewStateUtils.setFooterViewState(getActivity(), listJuzi, mHasMore, RecyclerViewLoadingFooter.State.TheEnd, null);
-        }else{
+        } else {
+            List<GrabTargetBean> data = new ArrayList<>();
+            // 刷新
+            for (int i = 0; i < 5; i++) {
+                GrabTargetBean grabTargetBean = new GrabTargetBean();
+                grabTargetBean.setName("第[2]组," + i);
+                grabTargetBean.setPhone("1587755555" + i);
+                if (i % 4 == 0) {
+                    grabTargetBean.setIsEnable("可抢");
+                } else {
+                    grabTargetBean.setIsEnable("不可抢");
+                }
+                data.add(grabTargetBean);
+            }
+            mDatas.addAll(data);
+            mAdapter.notifyDataSetChanged();
+            layoutSwipeRefresh.setRefreshing(false);
+            flag++;
             RecyclerViewStateUtils.setFooterViewState(listJuzi, RecyclerViewLoadingFooter.State.Normal);
         }
         // 加载更多

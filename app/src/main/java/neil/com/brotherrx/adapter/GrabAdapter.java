@@ -1,7 +1,6 @@
 package neil.com.brotherrx.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
 
@@ -25,6 +24,11 @@ public class GrabAdapter extends HaoCommonAdapter<GrabTargetBean> {
     public void updateRecyclerView(List<GrabTargetBean> datas){
         this.mDatas = datas;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
     }
 
     @Override
