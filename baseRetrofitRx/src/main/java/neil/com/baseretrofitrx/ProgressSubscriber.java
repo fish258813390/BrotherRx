@@ -28,20 +28,27 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
 
     private ProgressDialogHandler mProgressDialogHandler;
 
+    private Context context;
 
     /**
      * 构造
-     *
-     * @param api
      */
-    private Context context;
-
     public ProgressSubscriber(SubscriberOnNextListener<T> mSubscriberOnNextListener, Context context) {
         this.mSubscriberOnNextListener = mSubscriberOnNextListener;
         this.context = context;
         mProgressDialogHandler = new ProgressDialogHandler(context, this, true);
     }
 
+    /**
+     * 是否显示加载框
+     */
+    public ProgressSubscriber(SubscriberOnNextListener<T> mSubscriberOnNextListener, Context context,boolean isShow) {
+        this.mSubscriberOnNextListener = mSubscriberOnNextListener;
+        this.context = context;
+        if(isShow){
+            mProgressDialogHandler = new ProgressDialogHandler(context, this, true);
+        }
+    }
 
 
     private void showProgressDialog() {
