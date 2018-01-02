@@ -11,6 +11,9 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/baseCommon" />
             <option value="$PROJECT_DIR$/baseRetrofitRx" />
+            <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/library/common" />
+            <option value="$PROJECT_DIR$/library/irecyclerview" />
             <option value="$PROJECT_DIR$/recyclerviewlibrary" />
           </set>
         </option>

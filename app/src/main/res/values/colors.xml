@@ -15,6 +15,9 @@
     <color name="divider_color">#EFEFEF</color>
     <color name="activity_bg">#F3F7F6</color>
 
-
+    <!-- app主色调-->
     <color name="main_color">#FA7C20</color>
+    <color name="orange">#FA8C20</color>
+    <color name="transparent">#00000000</color>
+    <color name="red">#FFFF0000</color>
 </resources>
