@@ -4,11 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.bean.PageBean;
 import com.jaydenxiao.common.base.BaseActivity;
+import com.jaydenxiao.common.commonwidget.LoadingTip;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.BindView;
+import neil.com.brotherrx.R;
 import neil.com.brotherrx.entity.zone.CircleItem;
 import neil.com.brotherrx.ui.zone.contract.CircleZoneContract;
 import neil.com.brotherrx.ui.zone.model.ZoneModel;
@@ -21,6 +26,11 @@ import neil.com.brotherrx.ui.zone.presenter.CircleZonePresenter;
  */
 public class CircleZoneActivity extends BaseActivity<CircleZonePresenter, ZoneModel> implements CircleZoneContract.View, View.OnClickListener {
 
+    @BindView(R.id.irc)
+    IRecyclerView irc;
+    @BindView(R.id.loadedTip)
+    LoadingTip loadedTip;
+
     /**
      * 启动入口
      */
@@ -29,6 +39,20 @@ public class CircleZoneActivity extends BaseActivity<CircleZonePresenter, ZoneMo
         context.startActivity(intent);
     }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_circle_zone;
+    }
+
+    @Override
+    public void initPresenter() {
+        mPresenter.setVM(this, mModel);
+    }
+
+    @Override
+    public void initView() {
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -60,18 +84,5 @@ public class CircleZoneActivity extends BaseActivity<CircleZonePresenter, ZoneMo
 
     }
 
-    @Override
-    public int getLayoutId() {
-        return 0;
-    }
 
-    @Override
-    public void initPresenter() {
-
-    }
-
-    @Override
-    public void initView() {
-
-    }
 }
