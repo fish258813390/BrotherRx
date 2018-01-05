@@ -2,15 +2,21 @@ package neil.com.brotherrx.ui.zone.viewholder;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import neil.com.brotherrx.R;
 import neil.com.brotherrx.entity.zone.CircleItem;
+import neil.com.brotherrx.ui.zone.adapter.CommentAdapter;
+import neil.com.brotherrx.ui.zone.adapter.FavortListAdapter;
 import neil.com.brotherrx.ui.zone.presenter.CircleZonePresenter;
+import neil.com.brotherrx.ui.zone.widget.CommentListView;
 import neil.com.brotherrx.ui.zone.widget.ExpandableTextView;
 import neil.com.brotherrx.ui.zone.widget.FavortListView;
+import neil.com.brotherrx.ui.zone.widget.MultiImageView;
 
 /**
  * 动态说说item viewholder
@@ -48,9 +54,32 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
     public LinearLayout diacommentBody;
     public View digLine;
 
-    // 评论列表
 
-    public ZoneViewHolder(View itemView) {
+    public CommentListView commentListView; // 评论列表
+    public ImageView urlImageIv; // 链接图片
+    public TextView urlContentTv;   // 链接标题
+    public MultiImageView multiImageView; // 说说图片
+
+    public FavortListAdapter favortListAdapter;  // 点赞适配器
+    public CommentAdapter commentAdapter; // 评论适配器
+
+//    public ZoneViewHolder create(Context context, int type) {
+//        ZoneViewHolder iamgeViewHolder = new ZoneViewHolder(
+//                LayoutInflater.from(context).inflate(R.layout.item_))
+//    }
+
+
+    public ZoneViewHolder(View itemView, Context context, int type) {
         super(itemView);
+        this.itemView = itemView;
+        this.type = type;
+        this.mContext = context;
+        initView();
     }
+
+    private void initView() {
+
+    }
+
+
 }

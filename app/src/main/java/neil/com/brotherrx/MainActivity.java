@@ -1,11 +1,19 @@
 package neil.com.brotherrx;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -56,7 +64,7 @@ public class MainActivity extends BaseActivity<YiyuanPresenter, YiyuanView> impl
         ButterKnife.bind(this);
 
         initListener();
-
+        initPopWindow(this);
     }
 
     private void initListener() {
@@ -263,7 +271,7 @@ public class MainActivity extends BaseActivity<YiyuanPresenter, YiyuanView> impl
     }
 
 
-    @OnClick({R.id.btn_test1, R.id.btn_test2, R.id.btn_test3, R.id.btn_test4})
+    @OnClick({R.id.btn_test1, R.id.btn_test2, R.id.btn_test3, R.id.btn_test4, R.id.btn_four_test1})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_test1:
@@ -283,6 +291,10 @@ public class MainActivity extends BaseActivity<YiyuanPresenter, YiyuanView> impl
             case R.id.btn_test4:
                 Intent intent1 = new Intent(this, GrabMainActivity.class);
                 startActivity(intent1);
+                break;
+
+            case R.id.btn_four_test1:
+                popWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
                 break;
 
         }
@@ -305,6 +317,37 @@ public class MainActivity extends BaseActivity<YiyuanPresenter, YiyuanView> impl
 
     private void testFlatMap() {
 
+    }
+
+    PopupWindow popWindow;
+
+    public void initPopWindow(Context context) {
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_adavater_layout, null);
+        popWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
+
+        TextView tv_cancel = (TextView) view.findViewById(R.id.cancel);
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popWindow.dismiss();
+            }
+        });
+
+        //给popupwindow设置返回键监听
+        popWindow.getContentView().setFocusableInTouchMode(true);
+        popWindow.getContentView().setFocusable(true);
+        popWindow.getContentView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (popWindow != null && popWindow.isShowing()) {
+                        popWindow.dismiss();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
 }

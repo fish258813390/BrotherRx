@@ -74,7 +74,12 @@ public class XiaohuaFragment extends Fragment {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.button:
-                startActivity(new Intent(getActivity(), TestOneAc.class));
+//                startActivity(new Intent(getActivity(), TestOneAc.class));
+                if(btn_test.isSelected()){
+                    btn_test.setSelected(false);
+                }else{
+                    btn_test.setSelected(true);
+                }
 
                 break;
         }

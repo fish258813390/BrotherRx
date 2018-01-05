@@ -20,4 +20,9 @@
     <color name="orange">#FA8C20</color>
     <color name="transparent">#00000000</color>
     <color name="red">#FFFF0000</color>
+
+    <!-- 社区 -->
+    <color name="circle_name_selector_color">#cccccc</color>
+    <color name="zone_textcolor_bg">#DDDDDD</color>
+
 </resources>

@@ -16,5 +16,8 @@
         android:layout_marginLeft="89dp"
         android:layout_marginStart="89dp"
         android:layout_marginTop="24dp"
+        android:background="@drawable/selector_grab_bg"
         android:text="fragment——xiaohua" />
+
+
 </RelativeLayout>
