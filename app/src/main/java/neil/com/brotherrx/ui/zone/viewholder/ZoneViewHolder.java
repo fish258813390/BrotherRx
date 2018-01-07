@@ -54,12 +54,12 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
     public LinearLayout diacommentBody;
     public View digLine;
 
-
     public CommentListView commentListView; // 评论列表
     public ImageView urlImageIv; // 链接图片
     public TextView urlContentTv;   // 链接标题
     public MultiImageView multiImageView; // 说说图片
 
+    // 复用自定义适配器
     public FavortListAdapter favortListAdapter;  // 点赞适配器
     public CommentAdapter commentAdapter; // 评论适配器
 
