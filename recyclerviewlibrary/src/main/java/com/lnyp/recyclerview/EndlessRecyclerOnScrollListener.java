@@ -10,6 +10,8 @@ import android.view.View;
  * Created by cundong on 2015/10/9.
  * <p/>
  * 继承自RecyclerView.OnScrollListener，可以监听到是否滑动到页面最低部
+ * update by neil on 2018/1/8 解决和SwipeRefreshLayout 冲突的问题,当在顶部时,主动触发下拉刷新,不执行SR的刷新回调,而执行滑动事件;
+ * 解决方法:onScrollStateChanged 判断第一个item是否处于可视,如果是可视则不执行滑动事件
  */
 public class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener implements OnListLoadNextPageListener {
 
@@ -77,7 +79,11 @@ public class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListen
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         int visibleItemCount = layoutManager.getChildCount();
         int totalItemCount = layoutManager.getItemCount();
-        if ((visibleItemCount > 0 && currentScrollState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItemPosition) >= totalItemCount - 1)) {
+        int firstItemPosition = -1;
+        if (layoutManager instanceof LinearLayoutManager) {
+            firstItemPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition(); // 判断第一个item是否处于可视
+        }
+        if ((visibleItemCount > 0 && currentScrollState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItemPosition) >= totalItemCount - 1) && firstItemPosition != 0) {
             onLoadNextPage(recyclerView);
         }
     }

@@ -5,12 +5,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import neil.com.baseretrofitrx.listener.SubscriberOnNextListener;
+import neil.com.baseretrofitrx.utils.LogUtils;
 import neil.com.baseretrofitrx.utils.NetworkUtils;
 import rx.Subscriber;
 
 /**
  * 用于在http请求开始时，自动显示一个ProgressDialog
  * Created by neil on 2017/11/5 .
+ * 添加异常捕获处理
  */
 public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCancelListener {
 
@@ -94,7 +96,12 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
     @Override
     public void onNext(T t) {
         if (mSubscriberOnNextListener != null) {
-            mSubscriberOnNextListener.onNext(t);
+            try {
+                mSubscriberOnNextListener.onNext(t);
+            }catch (Exception e){
+                LogUtils.e("onNext---Exception " + e.toString());
+                e.printStackTrace();
+            }
         }
     }
 
@@ -119,6 +126,21 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
 
     public void setShowProgress(boolean show) {
         this.showProgress = show;
+    }
+
+
+    /**
+     * 新加物理返回按钮监听处理
+     * created by neil on 2017/12/28
+     */
+    public interface OnClickPhysicsBack {
+        void onClickBack();
+    }
+
+    private OnClickPhysicsBack mOnClickPhysicsBack;
+
+    public void setPhysicsBackClick(OnClickPhysicsBack onClickPhysicsBack) {
+        this.mOnClickPhysicsBack = onClickPhysicsBack;
     }
 
 }

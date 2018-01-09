@@ -9,7 +9,8 @@ import android.view.View;
  * <p/>
  * 分页展示数据时，RecyclerView的FooterView State 操作工具类
  * <p/>
- * RecyclerView一共有几种State：Normal/Loading/Error/TheEnd
+ * RecyclerView一共有几种State：Normal/Loading/Error/TheEnd/ClickRefresh
+ * update by neil on 2018/1/8 添加手动点击状态 ClickRefresh
  */
 public class RecyclerViewStateUtils {
 
@@ -49,6 +50,8 @@ public class RecyclerViewStateUtils {
 
             if (state == RecyclerViewLoadingFooter.State.NetWorkError) {
                 footerView.setOnClickListener(errorListener);
+            } else if (state == RecyclerViewLoadingFooter.State.ClickRefresh) {
+                footerView.setOnClickListener(errorListener);
             }
             recyclerView.scrollToPosition(headerAndFooterAdapter.getItemCount() - 1);
         } else {
@@ -56,6 +59,8 @@ public class RecyclerViewStateUtils {
             footerView.setState(state);
 
             if (state == RecyclerViewLoadingFooter.State.NetWorkError) {
+                footerView.setOnClickListener(errorListener);
+            } else if (state == RecyclerViewLoadingFooter.State.ClickRefresh) {
                 footerView.setOnClickListener(errorListener);
             }
 

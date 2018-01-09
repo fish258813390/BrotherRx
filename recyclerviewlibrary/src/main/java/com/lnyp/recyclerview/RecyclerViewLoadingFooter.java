@@ -39,7 +39,6 @@ public class RecyclerViewLoadingFooter extends RelativeLayout {
     }
 
     public void init(Context context) {
-
         inflate(context, R.layout.common_list_footer, this);
         setOnClickListener(null);
 
@@ -50,7 +49,7 @@ public class RecyclerViewLoadingFooter extends RelativeLayout {
         return mState;
     }
 
-    public void setState(State status ) {
+    public void setState(State status) {
         setState(status, true);
     }
 
@@ -146,6 +145,25 @@ public class RecyclerViewLoadingFooter extends RelativeLayout {
 
                 mNetworkErrorView.setVisibility(showView ? VISIBLE : GONE);
                 break;
+
+            case ClickRefresh:
+                if (mLoadingView != null) {
+                    mLoadingView.setVisibility(GONE);
+                }
+                if (mNetworkErrorView != null) {
+                    mNetworkErrorView.setVisibility(GONE);
+                }
+                if (mTheEndView == null) {
+                    ViewStub viewStub = (ViewStub) findViewById(R.id.end_viewstub);
+                    mTheEndView = viewStub.inflate();
+                } else {
+                    mTheEndView.setVisibility(VISIBLE);
+                }
+                TextView tvClick = (TextView) mTheEndView.findViewById(R.id.loading_text);
+                tvClick.setText(R.string.list_footer_click_refresh);
+                mTheEndView.setVisibility(showView ? VISIBLE : GONE);
+                break;
+
             default:
 
                 break;
@@ -153,6 +171,10 @@ public class RecyclerViewLoadingFooter extends RelativeLayout {
     }
 
     public static enum State {
-        Normal/**正常*/, TheEnd/**加载到最底了*/, Loading/**加载中..*/, NetWorkError/**网络异常*/
+        Normal/**正常*/
+        , TheEnd/**加载到最底了*/
+        , Loading/**加载中..*/
+        , NetWorkError/**网络异常*/
+        , ClickRefresh /**点击加载更多*/
     }
 }
