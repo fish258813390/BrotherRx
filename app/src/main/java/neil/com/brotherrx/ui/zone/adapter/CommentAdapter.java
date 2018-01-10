@@ -34,6 +34,11 @@ public class CommentAdapter {
     private CommentListView mListView;
     private List<CommentItem> mDatas; // 评论数据
 
+    public CommentAdapter(Context context){
+        mContext = context;
+        mDatas = new ArrayList<CommentItem>();
+    }
+
     public CommentAdapter(Context mContext, List<CommentItem> mDatas) {
         this.mContext = mContext;
         setDatas(mDatas);

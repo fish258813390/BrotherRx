@@ -10,6 +10,7 @@ import java.util.List;
 
 import neil.com.brotherrx.entity.zone.CircleItem;
 import neil.com.brotherrx.ui.zone.presenter.CircleZonePresenter;
+import neil.com.brotherrx.ui.zone.viewholder.ZoneViewHolder;
 
 /**
  * 圈子列表adapter
@@ -36,12 +37,15 @@ public class CircleAdapter extends BaseReclyerViewAdapter<CircleItem> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return super.onCreateViewHolder(parent, viewType);
+        return ZoneViewHolder.create(mContext, viewType);
     }
 
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
+        if (holder instanceof ZoneViewHolder) {
+            ((ZoneViewHolder) holder).setData(mPresenter, get(position), position);
+        }
     }
 }
