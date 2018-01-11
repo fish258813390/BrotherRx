@@ -13,19 +13,22 @@ import android.widget.TextView;
 import com.jaydenxiao.common.baseapp.AppCache;
 import com.jaydenxiao.common.commonutils.ImageLoaderUtils;
 import com.jaydenxiao.common.commonutils.TimeUtil;
+import com.jaydenxiao.common.commonutils.ToastUitl;
 
 import java.util.List;
 
 import neil.com.baseretrofitrx.utils.LogUtils;
 import neil.com.brotherrx.R;
-import neil.com.brotherrx.entity.zone.CircleItem;
-import neil.com.brotherrx.entity.zone.CommentItem;
-import neil.com.brotherrx.entity.zone.FavortItem;
+import neil.com.brotherrx.ui.zone.bean.CircleItem;
+import neil.com.brotherrx.ui.zone.bean.CommentConfig;
+import neil.com.brotherrx.ui.zone.bean.CommentItem;
+import neil.com.brotherrx.ui.zone.bean.FavortItem;
 import neil.com.brotherrx.ui.zone.DatasUtil;
 import neil.com.brotherrx.ui.zone.adapter.CircleAdapter;
 import neil.com.brotherrx.ui.zone.adapter.CommentAdapter;
 import neil.com.brotherrx.ui.zone.adapter.FavortListAdapter;
 import neil.com.brotherrx.ui.zone.presenter.CircleZonePresenter;
+import neil.com.brotherrx.ui.zone.spannable.ISpanClick;
 import neil.com.brotherrx.ui.zone.widget.CommentListView;
 import neil.com.brotherrx.ui.zone.widget.ExpandableTextView;
 import neil.com.brotherrx.ui.zone.widget.FavortListView;
@@ -142,7 +145,7 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
     }
 
     // 设置数据
-    public void setData(CircleZonePresenter mPresenter2, CircleItem circleItem2, final int position2) {
+    public void setData(final CircleZonePresenter mPresenter2, CircleItem circleItem2, final int position2) {
         if (mPresenter2 == null || circleItem2 == null) {
             LogUtils.d("mPresenter2 || circleItem2 == null");
             return;
@@ -150,8 +153,8 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
         this.circleItem = circleItem2;
         this.mPresenter = mPresenter2;
         this.position = position2;
-        List<FavortItem> goodjobs = circleItem.getGoodjobs();// 点赞分类
-        List<CommentItem> replys = circleItem.getReplys(); // 评论
+        final List<FavortItem> favortDatas = circleItem.getGoodjobs();// 点赞分类
+        final List<CommentItem> commentsDatas = circleItem.getReplys(); // 评论
         boolean hasFaort = circleItem.getGoodjobs().size() > 0 ? true : false;
         boolean hasComment = circleItem.getReplys().size() > 0 ? true : false;
         // 头像
@@ -176,10 +179,199 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        switch (type){
+        switch (type) {
+            case CircleAdapter.ITEM_VIEW_TYPE_URL: // 处理链接动态和图片
+                String linkImg = circleItem.getLinkImg();
+                String linkTitile = circleItem.getLinkTitle();
+                ImageLoaderUtils.display(mContext, urlImageIv, linkImg);
+                urlContentTv.setText(linkTitile);
+                urlBody.setVisibility(View.VISIBLE);
+                urlTipTv.setVisibility(View.VISIBLE);
+                break;
+            case CircleAdapter.ITEM_VIEW_TYPE_IMAGE: // 处理图片
+            default:
+                List<String> photos = circleItem.getPictureList();
+                if (photos != null && photos.size() > 0) {
+                    multiImageView.setVisibility(View.VISIBLE);
+                    multiImageView.setList(photos);
+                    multiImageView.setOnItemClickListener(new MultiImageView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            // 查看大图
+                            LogUtils.d("点击了：" + position);
+                        }
+                    });
+                } else {
+                    multiImageView.setVisibility(View.GONE);
+                }
+                break;
+        }
 
+        // 点赞和评论
+        ll_comment.setVisibility(View.VISIBLE);
+        if (hasFaort || hasComment) {
+            // 处理点赞
+            if (hasFaort) {
+                favortListTv.setSpanClickListener(new ISpanClick() {
+                    @Override
+                    public void onClick(int postion) {
+                        String userId = favortDatas.get(postion).getUserId();
+                        ToastUitl.showShort(userId);
+                    }
+                });
+                favortListAdapter.setDatas(favortDatas);
+                favortListAdapter.notifyDataSetChanged();
+                favortListTv.setVisibility(View.VISIBLE);
+                //favortBtn.setText(String.valueOf(favortDatas.size()));
+            } else {
+                favortListTv.setVisibility(View.GONE);
+                favortBtn.setText("");
+            }
+
+            if (hasComment) {
+                // 点击评论
+                commentList.setOnItemClick(new CommentListView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int commentPosition) {
+                        CommentItem commentItem = commentsDatas.get(commentPosition);
+                        // 复制或者删除自己的评论
+                        if (AppCache.getInstance().getUserId().equals(commentItem.getUserId())) {
+                            ToastUitl.showShort("复制或删除自己的评论");
+                        } else {
+                            // 回复别人的评论
+                            if (mPresenter != null) {
+                                CommentConfig config = new CommentConfig();
+                                config.circlePosition = position;
+                                config.commentPosition = commentPosition;
+                                config.commentType = CommentConfig.Type.REPLY;
+                                config.setPublishId(circleItem.getId());
+                                config.setPublishUserId(circleItem.getUserId()); // 动态人userId
+                                config.setId(commentItem.getUserId()); // 评论人id
+                                config.setName(commentItem.getUserNickname()); // 评论人nickname
+                                mPresenter.showEditTextBody(config);
+                            }
+                        }
+
+                    }
+                });
+
+                // 长按评论
+                commentList.setOnItemLongClickListener(new CommentListView.OnItemLongClickListener() {
+                    @Override
+                    public void onItemLongClick(int position) {
+                        ToastUitl.showShort("长按评论");
+                    }
+                });
+//                snsBtn.setText(String.valueOf(commentsDatas.size()));
+                commentAdapter.setDatas(commentsDatas);
+                commentAdapter.notifyDataSetChanged();
+                commentList.setVisibility(View.VISIBLE);
+            } else {
+                snsBtn.setText("");
+                commentList.setVisibility(View.GONE);
+            }
+        } else {
+            // 没有评论也没有赞
+            favortListTv.setVisibility(View.GONE);
+            commentList.setVisibility(View.GONE);
+            favortBtn.setText("");
+            snsBtn.setText("");
+        }
+        digLine.setVisibility(hasFaort && hasComment ? View.VISIBLE : View.GONE);
+        // 评论按钮
+        snsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 评论 TODO
+                comment(circleItem.getId(), circleItem.getUserId(), position);
+            }
+        });
+        // 评论区布局点击
+        ll_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 评论 TODO
+                comment(circleItem.getId(), circleItem.getUserId(), position);
+            }
+        });
+
+        // 点赞
+        favortBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 判断是否已点赞
+                String curUserFavortId = circleItem.getCurUserFavortId();
+                if (!TextUtils.isEmpty(curUserFavortId)) {
+                    // 取消点赞 TODO
+                    favort(circleItem.getId(), circleItem.getUserId(), position, "取消", view);
+                } else {
+                    // 点赞 TODO
+                    favort(circleItem.getId(), circleItem.getUserId(), position, "赞", view);
+                }
+            }
+        });
+
+        //头像点击
+        headIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //跳到个人朋友圈
+                ToastUitl.showShort("头像点击了" + position);
+            }
+        });
+        urlTipTv.setVisibility(View.GONE);
+    }
+
+    // 点赞 | 取消点赞
+    private long mLasttime = 0;
+
+    private void favort(String publishId, String publishUserId, int circlePosition,
+                        String mTitle, View view) {
+        if (System.currentTimeMillis() - mLasttime < 700) {
+            // 防止快速点击操作
+            return;
+        }
+        mLasttime = System.currentTimeMillis();
+        if (mPresenter != null) {
+            if ("赞".equals(mTitle)) {
+                // 点赞 TODO
+                mPresenter.addFavort(publishId, publishUserId, circlePosition, view);
+            } else {
+                // 取消点赞 TODO
+                mPresenter.deleteFavort(publishId, publishUserId, circlePosition);
+            }
         }
 
     }
+
+    // 评论
+    private void comment(String publishId, String publishUserId, int circlePosition) {
+        if (mPresenter != null) {
+            CommentConfig config = new CommentConfig();
+            config.circlePosition = circlePosition;
+            config.commentType = CommentConfig.Type.PUBLIC;
+            config.setPublishId(publishId);
+            config.setPublishUserId(publishUserId);
+            // TODO 评论
+            mPresenter.showEditTextBody(config);
+        }
+    }
+
+    public View getRootView() {
+        return itemView.findViewById(R.id.ll_root);
+    }
+
+    public View getCommentListView() {
+        return commentList;
+    }
+
+    public int getHeight() {
+        if (itemView != null) {
+            return itemView.getMeasuredHeight();
+        } else {
+            return 0;
+        }
+    }
+
 
 }

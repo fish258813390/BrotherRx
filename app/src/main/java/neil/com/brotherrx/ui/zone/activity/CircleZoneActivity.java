@@ -11,10 +11,12 @@ import com.jaydenxiao.common.commonwidget.LoadingTip;
 
 import java.util.List;
 
-import butterknife.Bind;
 import butterknife.BindView;
 import neil.com.brotherrx.R;
-import neil.com.brotherrx.entity.zone.CircleItem;
+import neil.com.brotherrx.ui.zone.bean.CircleItem;
+import neil.com.brotherrx.ui.zone.bean.CommentConfig;
+import neil.com.brotherrx.ui.zone.bean.CommentItem;
+import neil.com.brotherrx.ui.zone.bean.FavortItem;
 import neil.com.brotherrx.ui.zone.contract.CircleZoneContract;
 import neil.com.brotherrx.ui.zone.model.ZoneModel;
 import neil.com.brotherrx.ui.zone.presenter.CircleZonePresenter;
@@ -81,6 +83,31 @@ public class CircleZoneActivity extends BaseActivity<CircleZonePresenter, ZoneMo
 
     @Override
     public void setListData(List<CircleItem> circleItemList, PageBean pageBean) {
+
+    }
+
+    @Override
+    public void update2AddFavort(int circlePosition, FavortItem favortItem) {
+
+    }
+
+    @Override
+    public void update2DeleteFavort(int circlePosition, String userId) {
+
+    }
+
+    @Override
+    public void update2AddComment(int circlePosition, CommentItem commentItem) {
+
+    }
+
+    @Override
+    public void update2DeleteComment(int circlePosition, String commentId, int commentPosition) {
+
+    }
+
+    @Override
+    public void updateEditTextBodyVisible(int visibility, CommentConfig commentConfig) {
 
     }
 

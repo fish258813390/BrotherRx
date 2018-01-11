@@ -10,7 +10,8 @@ import java.util.List;
 
 import neil.com.baseretrofitrx.base.BaseApplication;
 import neil.com.brotherrx.R;
-import neil.com.brotherrx.entity.zone.FavortItem;
+import neil.com.brotherrx.ui.zone.bean.FavortItem;
+import neil.com.brotherrx.ui.zone.spannable.CircleMovementMethod;
 import neil.com.brotherrx.ui.zone.spannable.NameClickable;
 import neil.com.brotherrx.ui.zone.widget.FavortListView;
 
@@ -25,6 +26,10 @@ public class FavortListAdapter {
 
     public List<FavortItem> getDatas() {
         return datas;
+    }
+
+    public void setDatas(List<FavortItem> datas){
+        this.datas = datas;
     }
 
     public void bindListView(FavortListView listView) {
@@ -75,6 +80,8 @@ public class FavortListAdapter {
                 }
             }
         }
+        mListView.setText(builder);
+        mListView.setMovementMethod(new CircleMovementMethod(R.color.circle_name_selector_color));
     }
 
 

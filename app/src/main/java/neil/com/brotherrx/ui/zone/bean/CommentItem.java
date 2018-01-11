@@ -1,4 +1,4 @@
-package neil.com.brotherrx.entity.zone;
+package neil.com.brotherrx.ui.zone.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;

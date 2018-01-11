@@ -1,9 +1,10 @@
-package neil.com.brotherrx.entity.zone;
+package neil.com.brotherrx.ui.zone.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.jaydenxiao.common.baseapp.AppCache;
 import com.neil.common.utils.ImageUtils;
 
 import java.util.ArrayList;
@@ -280,5 +281,22 @@ public class CircleItem implements Parcelable {
         } else {
             return null;
         }
+    }
+
+    public CircleItem() {
+    }
+
+    public String getCurUserFavortId() {
+        String curUserId = "";
+        String myId = AppCache.getInstance().getUserId();
+        if (goodjobs != null && !TextUtils.isEmpty(myId) && goodjobs.size() > 0) {
+            for (FavortItem item : goodjobs) {
+                if(myId.equals(item.getUserId())){
+                    curUserId = item.getUserId();
+                    return curUserId;
+                }
+            }
+        }
+        return curUserId;
     }
 }

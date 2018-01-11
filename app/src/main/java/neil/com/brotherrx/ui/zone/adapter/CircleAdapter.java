@@ -6,9 +6,7 @@ import android.view.ViewGroup;
 
 import com.aspsine.irecyclerview.baseadapter.BaseReclyerViewAdapter;
 
-import java.util.List;
-
-import neil.com.brotherrx.entity.zone.CircleItem;
+import neil.com.brotherrx.ui.zone.bean.CircleItem;
 import neil.com.brotherrx.ui.zone.presenter.CircleZonePresenter;
 import neil.com.brotherrx.ui.zone.viewholder.ZoneViewHolder;
 

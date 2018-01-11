@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Random;
 
 import neil.com.brotherrx.entity.Result;
-import neil.com.brotherrx.entity.zone.CircleItem;
+import neil.com.brotherrx.ui.zone.bean.CircleItem;
 import neil.com.brotherrx.ui.zone.DatasUtil;
+import neil.com.brotherrx.ui.zone.bean.CommentConfig;
 import neil.com.brotherrx.ui.zone.contract.CircleZoneContract;
 import rx.Subscriber;
 
@@ -79,4 +80,26 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
             }
         }));
     }
+
+    @Override
+    public void addFavort(String publishId, String publishUserId, int circlePosition, CircleZoneContract.View view) {
+
+    }
+
+    @Override
+    public void deleteFavort(String publicId, String publishUserId, int circlePosition) {
+
+    }
+
+    @Override
+    public void addComment(String content, CommentConfig commentConfig) {
+
+    }
+
+    @Override
+    public void deleteComment(String content, CommentConfig commentConfig) {
+
+    }
+
+
 }

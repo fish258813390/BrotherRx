@@ -5,7 +5,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -16,7 +15,7 @@ import java.util.List;
 
 import neil.com.baseretrofitrx.utils.LogUtils;
 import neil.com.brotherrx.R;
-import neil.com.brotherrx.entity.zone.CommentItem;
+import neil.com.brotherrx.ui.zone.bean.CommentItem;
 import neil.com.brotherrx.ui.zone.spannable.CircleMovementMethod;
 import neil.com.brotherrx.ui.zone.spannable.NameClickListener;
 import neil.com.brotherrx.ui.zone.spannable.NameClickable;
