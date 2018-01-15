@@ -6,17 +6,17 @@ import android.os.Parcelable;
 /**
  * 分页信息 默认一页10条
  */
-public  class PageBean implements Parcelable {
-    private int page=0;
-    private int rows=10;
+public class PageBean implements Parcelable {
+    private int page = 0;
+    private int rows = 10;
     private int totalCount;
     private int totalPage;
-    private boolean refresh=true;
+    private boolean refresh = true;
 
 
     public int getLoadPage() {
-        if(refresh){
-            return  page=1;
+        if (refresh) {
+            return page = 1;
         }
         return ++page;
     }

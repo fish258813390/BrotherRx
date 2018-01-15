@@ -57,6 +57,10 @@ public interface CircleZoneContract {
 
         void updateEditTextBodyVisible(int visibility, CommentConfig commentConfig);
 
+        void startProgressDialog();
+
+        void stopProgressDialog();
+
     }
 
     abstract static class Presenter extends BasePresenter<View, Model> {
@@ -76,8 +80,8 @@ public interface CircleZoneContract {
         // 增加评论
         public abstract void addComment(String content, CommentConfig commentConfig);
 
-        // 删除评论
-        public abstract void deleteComment(String content, CommentConfig commentConfig);
+        //删除评论
+        public abstract void deleteComment(final int circlePosition, final String commentId,int commentPosition);
 
         // 显示评论输入框
         public abstract void showEditTextBody(CommentConfig commentConfig);

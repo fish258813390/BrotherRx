@@ -15,7 +15,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name="neil.com.brotherrx.app.AppApplication">
 
 
         <activity android:name=".MainActivity">
@@ -29,6 +30,7 @@
 
         <activity android:name=".ui.lifecycle.TestOneAc"/>
 
+        <activity android:name=".ui.zone.activity.CircleZoneActivity"/>
     </application>
 
 </manifest>

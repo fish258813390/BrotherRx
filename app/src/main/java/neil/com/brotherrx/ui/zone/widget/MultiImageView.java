@@ -59,11 +59,11 @@ public class MultiImageView extends LinearLayout {
     }
 
 
-    public void setList(List<String> iamgeList) {
-        if (imagesList == null) {
+    public void setList(List<String> imageList) {
+        if (imageList == null) {
             throw new IllegalArgumentException("imageList is null...");
         }
-        imagesList = iamgeList;
+        imagesList = imageList;
 
         if (MAX_WIDTH > 0) {
             pxMoreWandH = (MAX_WIDTH - pxImagePadding * 2) / 3; //解决右侧图片和内容对不齐问题

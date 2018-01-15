@@ -33,6 +33,7 @@ import neil.com.baseretrofitrx.utils.LogUtils;
 import neil.com.brotherrx.sample.yiyuan.YiyuanPresenter;
 import neil.com.brotherrx.sample.yiyuan.YiyuanView;
 import neil.com.brotherrx.ui.grab.GrabMainActivity;
+import neil.com.brotherrx.ui.zone.activity.CircleZoneActivity;
 import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
@@ -294,7 +295,8 @@ public class MainActivity extends BaseActivity<YiyuanPresenter, YiyuanView> impl
                 break;
 
             case R.id.btn_four_test1:
-                popWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+//                popWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+                CircleZoneActivity.startAction(this);
                 break;
 
         }
