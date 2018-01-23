@@ -31,6 +31,7 @@
         <activity android:name=".ui.lifecycle.TestOneAc"/>
 
         <activity android:name=".ui.zone.activity.CircleZoneActivity"/>
+        <activity android:name=".ui.zone.activity.CircleZoneActivity1"/>
     </application>
 
 </manifest>

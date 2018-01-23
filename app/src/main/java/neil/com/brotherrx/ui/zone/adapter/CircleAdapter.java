@@ -9,6 +9,7 @@ import com.aspsine.irecyclerview.baseadapter.BaseReclyerViewAdapter;
 import neil.com.brotherrx.ui.zone.bean.CircleItem;
 import neil.com.brotherrx.ui.zone.presenter.CircleZonePresenter;
 import neil.com.brotherrx.ui.zone.viewholder.ZoneViewHolder;
+import neil.com.brotherrx.ui.zone.viewholder.ZoneViewHolder1;
 
 /**
  * 圈子列表adapter
@@ -35,15 +36,15 @@ public class CircleAdapter extends BaseReclyerViewAdapter<CircleItem> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return ZoneViewHolder.create(mContext, viewType);
+        return ZoneViewHolder1.create(mContext, viewType);
     }
 
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        if (holder instanceof ZoneViewHolder) {
-            ((ZoneViewHolder) holder).setData(mPresenter, get(position), position);
+        if (holder instanceof ZoneViewHolder1) {
+            ((ZoneViewHolder1) holder).setData(mPresenter, get(position), position);
         }
     }
 }
