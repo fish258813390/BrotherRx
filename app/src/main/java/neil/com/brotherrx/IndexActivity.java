@@ -69,6 +69,7 @@ public class IndexActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         initView();
+        System.out.print("测试一夏侯惇 ");
     }
 
 
