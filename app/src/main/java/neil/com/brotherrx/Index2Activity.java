@@ -80,7 +80,7 @@ public class Index2Activity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index2);
         ButterKnife.bind(this);
-
+        System.out.print("我也要测试一夏侯惇 ");
         initView();
     }
 
